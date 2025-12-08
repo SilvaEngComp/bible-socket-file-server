@@ -9,7 +9,7 @@ public class BibleIndexTest {
     @Test
     public void testAddAndGetBook() {
         BibleIndex index = new BibleIndex();
-        Book book = new Book("Genesis", "gn", null);
+        Book book = new Book("Genesis",1, "gn", null);
         index.addBook(book);
         assertEquals(book, index.getBook("gn"));
     }
