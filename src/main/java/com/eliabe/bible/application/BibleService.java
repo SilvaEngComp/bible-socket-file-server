@@ -18,5 +18,6 @@ public class BibleService {
         // Lookup logic would go here
         return "Verse text for " + referenceText;
     }
+
 }
 

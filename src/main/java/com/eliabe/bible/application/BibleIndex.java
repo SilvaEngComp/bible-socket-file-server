@@ -10,7 +10,7 @@ public class BibleIndex {
     // Add more indexes as needed
 
     public void addBook(Book book) {
-        bookIndex.put(book.getAbbreviation(), book);
+        bookIndex.put(book.abbreviation(), book);
     }
 
     public Book getBook(String abbrev) {
