@@ -1,6 +1,7 @@
-package main.java.com.eliabe.bible.application;
+package com.eliabe.bible.application;
 
-import main.java.com.eliabe.bible.domain.model.Book;
+
+import com.eliabe.bible.domain.model.Book;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,7 +1,6 @@
-package test.java.com.eliabe.bible.infrastructure.importer;
+package com.eliabe.bible.infrastructure.importer;
 
-import main.java.com.eliabe.bible.domain.model.Bible;
-import main.java.com.eliabe.bible.infrastructure.importer.GenericJsonImporter;
+import com.eliabe.bible.domain.model.Bible;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

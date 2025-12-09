@@ -1,9 +1,10 @@
-package main.java.com.eliabe.bible.infrastructure.importer;
+package com.eliabe.bible.infrastructure.importer;
 
-import main.java.com.eliabe.bible.domain.model.Bible;
+
+import com.eliabe.bible.domain.model.Bible;
 
 public class GenericJsonImporter {
-    public Bible importFromJson(String jsonPath) {
+    public static Bible importFromJson(String jsonPath) {
         // Stub: implement JSON import logic
         return null;
     }

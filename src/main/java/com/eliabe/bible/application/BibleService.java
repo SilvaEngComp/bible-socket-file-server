@@ -1,7 +1,8 @@
-package main.java.com.eliabe.bible.application;
+package com.eliabe.bible.application;
 
-import main.java.com.eliabe.bible.domain.model.Bible;
-import main.java.com.eliabe.bible.domain.ReferenceParser;
+
+import com.eliabe.bible.domain.ReferenceParser;
+import com.eliabe.bible.domain.model.Bible;
 
 public class BibleService {
     private final Bible bible;

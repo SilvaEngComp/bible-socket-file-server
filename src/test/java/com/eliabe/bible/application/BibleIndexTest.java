@@ -1,7 +1,6 @@
-package test.java.com.eliabe.bible.application;
+package com.eliabe.bible.application;
 
-import main.java.com.eliabe.bible.application.BibleIndex;
-import main.java.com.eliabe.bible.domain.model.Book;
+import com.eliabe.bible.domain.model.Book;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

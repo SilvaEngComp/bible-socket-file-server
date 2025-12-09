@@ -1,7 +1,6 @@
-package test.java.com.eliabe.bible.domain;
+package com.eliabe.bible.domain;
 import static org.junit.jupiter.api.Assertions.*;
 
-import main.java.com.eliabe.bible.domain.ReferenceParser;
 import org.junit.jupiter.api.Test;
 
 

@@ -1,4 +1,4 @@
-package main.java.com.eliabe.bible.domain;
+package com.eliabe.bible.domain;
 
 import java.util.Map;
 import java.util.HashMap;

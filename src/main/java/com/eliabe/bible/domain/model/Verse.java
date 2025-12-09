@@ -1,7 +1,7 @@
-package main.java.com.eliabe.bible.domain.model;
+package com.eliabe.bible.domain.model;
 
 public record Verse (
-    int number,
+    Integer number,
     String text){
 }
 

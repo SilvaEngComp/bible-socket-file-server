@@ -1,8 +1,6 @@
 
-package main.java.com.eliabe.bible.domain.model;
+package com.eliabe.bible.domain.model;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 public record Bible (
