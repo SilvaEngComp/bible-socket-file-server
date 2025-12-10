@@ -1,4 +1,4 @@
-package com.eliabe.bible.application;
+package com.eliabe.bible.application.service;
 
 
 import com.eliabe.bible.domain.ReferenceParser;
