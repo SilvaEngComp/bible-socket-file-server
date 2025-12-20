@@ -10,8 +10,12 @@ import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintStream;
 import java.net.InetSocketAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.LinkedHashSet;
@@ -20,51 +24,70 @@ import java.util.Set;
 
 public class SocketBibleServer {
 
-    public static void startServer()  throws IOException {
-        InetSocketAddress initSocketServer = new InetSocketAddress(8000);
-        HttpServer httpServer = HttpServer.create(initSocketServer,0);
-    httpServer.createContext("/bible",exchange -> {
-        String json = getJsonFile();
-        byte[] bytes = json.getBytes();
+    public static void startServer() throws IOException {
 
-        Headers responseHeaders = exchange.getResponseHeaders();
-        responseHeaders.add("Content-Type","application/json");
-
-        exchange.sendResponseHeaders(200,bytes.length);
-
-
-        OutputStream responseBody = exchange.getResponseBody();
-        responseBody.write(bytes);
-    });
-        System.out.println("Server started on port 8080");
-        httpServer.start();
-}
-
-private static String getJsonFile(){
-    try{
-        return Files.readString(Path.of("C:\\_1\\Estudo Java\\demo\\bible-socket-service\\src\\main\\resources\\jsonresourcesbible_export.json"));
-    }catch (IOException e){
-       return createNewBible();
+        try (ServerSocket serverSocket = new ServerSocket(8000)) {
+            System.out.println("Socket Bible Server started on port 8000");
+            while (true) {
+                Socket clientSocket = serverSocket.accept();
+                    Thread thread = new Thread(() -> requestSolver(clientSocket));
+                    thread.start();
+                
+            }
+        }
     }
-}
 
+    private static void requestSolver(Socket clientSocket) {
+        try (clientSocket) {
+            System.out.println("Client connected: " + clientSocket.getInetAddress());
+            InputStream clientInputStream = clientSocket.getInputStream();
+            StringBuilder requestBuilder = new StringBuilder();
+            int data;
+            do {
+                data = clientInputStream.read();
+                requestBuilder.append((char) data);
+            } while (clientInputStream.available() > 0);
+            String request = requestBuilder.toString();
+            System.out.println("Received request: " + request);
 
-public static String createNewBible(){
-    Set<Verse> verses = BibleFileImporter.readFromTxtFile("src/main/resources/genesys1.txt");
-       Chapter genesysChapter1 = new Chapter(1,verses);
-       Book bookGenesys = new Book(
-               "Gênesis",
-               1,
-               "Gen",
-               new LinkedHashSet<Chapter>(List.of(genesysChapter1))
-       );
-       Bible bible = new Bible(
-               "Portuguese",
-               "Almeida Revista e Atualizada",
-               "Source Info",
-               "2024-06-01T12:00:00Z",
-               new LinkedHashSet<Book>(List.of(bookGenesys))
-       );
-       return JsonExporter.exportToJson(bible);
-}
+            Thread.sleep(250); // Simulate processing delay
+            String json = getJsonFile();
+
+            OutputStream clienOutputStream = clientSocket.getOutputStream();
+            PrintStream serverOutput = new PrintStream(clienOutputStream);
+            serverOutput.println("HTTP/1.1 200 OK");
+            serverOutput.println("Content-Type: application/json; charset=UTF-8");
+            serverOutput.println();
+            serverOutput.println(json);
+        } catch (IOException | InterruptedException e) {
+            System.out.println("Error handling client request: " + e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static String getJsonFile() {
+        try {
+            return Files.readString(Path.of(
+                    "C:\\_1\\Estudo Java\\demo\\bible-socket-service\\src\\main\\resources\\jsonresourcesbible_export.json"));
+        } catch (IOException e) {
+            return createNewBible();
+        }
+    }
+
+    public static String createNewBible() {
+        Set<Verse> verses = BibleFileImporter.readFromTxtFile("src/main/resources/genesys1.txt");
+        Chapter genesysChapter1 = new Chapter(1, verses);
+        Book bookGenesys = new Book(
+                "Gênesis",
+                1,
+                "Gen",
+                new LinkedHashSet<Chapter>(List.of(genesysChapter1)));
+        Bible bible = new Bible(
+                "Portuguese",
+                "Almeida Revista e Atualizada",
+                "Source Info",
+                "2024-06-01T12:00:00Z",
+                new LinkedHashSet<Book>(List.of(bookGenesys)));
+        return JsonExporter.exportToJson(bible);
+    }
 }
