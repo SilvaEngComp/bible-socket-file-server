@@ -32,8 +32,9 @@ bin/
 *.json
 
 ## java projects ###
-.build/
-.target/
+*./.build/
+build
+target/
 .settings/
 .gradle/
 .gradle-cache/

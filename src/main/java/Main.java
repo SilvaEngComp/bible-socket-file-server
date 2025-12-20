@@ -22,21 +22,5 @@ public class Main {
         SocketBibleServer.startServer();
         sleep(10);
         BibleClient.clientCall();
-//        Set<Verse> verses = BibleFileImporter.readFromTxtFile("src/main/resources/genesys1.txt");
-//        Chapter genesysChapter1 = new Chapter(1,verses);
-//        Book bookGenesys = new Book(
-//                "Gênesis",
-//                1,
-//                "Gen",
-//                new LinkedHashSet<Chapter>(List.of(genesysChapter1))
-//        );
-//        Bible bible = new Bible(
-//                "Portuguese",
-//                "Almeida Revista e Atualizada",
-//                "Source Info",
-//                "2024-06-01T12:00:00Z",
-//                new LinkedHashSet<Book>(List.of(bookGenesys))
-//        );
-//        System.out.println(JsonExporter.exportToJson(bible));
     }
 }
