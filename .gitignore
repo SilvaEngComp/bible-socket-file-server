@@ -30,3 +30,8 @@ bin/
 
 ### json ###
 *.json
+
+## java projects ###
+.build/
+.target/
+.settings/
