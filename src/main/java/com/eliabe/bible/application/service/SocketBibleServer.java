@@ -21,19 +21,20 @@ import java.nio.file.Path;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class SocketBibleServer {
 
     public static void startServer() throws IOException {
 
-        try (ServerSocket serverSocket = new ServerSocket(8000)) {
-            System.out.println("Socket Bible Server started on port 8000");
-            while (true) {
-                Socket clientSocket = serverSocket.accept();
-                    Thread thread = new Thread(() -> requestSolver(clientSocket));
-                    thread.start();
-                
-            }
+        ExecutorService executorService = Executors.newFixedThreadPool(50);
+            try (ServerSocket serverSocket = new ServerSocket(8000)) {
+                System.out.println("Socket Bible Server started on port 8000");
+                while (true) {
+                    Socket clientSocket = serverSocket.accept();
+                    executorService.execute(() -> requestSolver(clientSocket));
+                }
         }
     }
 
@@ -68,7 +69,7 @@ public class SocketBibleServer {
     private static String getJsonFile() {
         try {
             return Files.readString(Path.of(
-                    "C:\\_1\\Estudo Java\\demo\\bible-socket-service\\src\\main\\resources\\jsonresourcesbible_export.json"));
+                    "src/main/resources/jsonresourcesbible_export.json"));
         } catch (IOException e) {
             return createNewBible();
         }

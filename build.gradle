@@ -5,9 +5,14 @@ plugins {
 
 group = 'com.eliabe.bible'
 version = '1.0.0'
+buildDir = 'target'
 
-sourceCompatibility = '21'
-targetCompatibility = '21'
+
+// Wrap compatibility settings here
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
 
 repositories {
     mavenCentral()
@@ -16,8 +21,8 @@ repositories {
 dependencies {
     implementation 'org.slf4j:slf4j-simple:2.0.9'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.1'
+    implementation 'com.google.code.gson:gson:2.10.1' // Note: Check version, 2.10.1 is standard
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
-    implementation("com.google.code.gson:gson:2.13.2")
 }
 
 application {

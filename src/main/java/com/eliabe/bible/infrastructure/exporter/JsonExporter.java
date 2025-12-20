@@ -9,7 +9,7 @@ import java.io.FileWriter;
 public class JsonExporter {
     public static String exportToJson(Bible bible) {
       Gson gson = new Gson();
-      String fileName = "C:\\_1\\Estudo Java\\demo\\bible-socket-service\\src\\main\\resources\\jsonresourcesbible_export.json";
+      String fileName = "src/main/resources/jsonresourcesbible_export.json";
       try(var writer = new BufferedWriter(new FileWriter(fileName))) {
           String json = gson.toJson(bible);
           writer.write(json);
